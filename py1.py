@@ -14,16 +14,16 @@ def scrape_wikipedia(url):
     mother_name_th_element = soup.find('th', class_='infobox-label', string="Mother")
     mother_name_th_element2 = soup.find('th', class_='infobox-label', string="Parents")
     if mother_name_th_element is not None:
-        print("1 is not none")
+        
         next_sibling = mother_name_th_element.find_next_sibling()
-        print(next_sibling.name)
+        
         if next_sibling.name == 'a':
             mother_name = next_sibling.string
         elif next_sibling.name == 'td':
-            print("td it is")
+            
             mother_name = next_sibling.string
     elif mother_name_th_element2 is not None:
-        print("2 is not none")
+        
         mother_name = None
         if mother_name_th_element2:
             mother_list = mother_name_th_element2.find_next('ul')
@@ -44,7 +44,7 @@ def scrape_wikipedia(url):
                             mother_name = mother_name_element_br.strip()
                             
                     else:
-                        print("no td_element")
+                        
         else:
             mother_name = "Mother Not Listed"
 
@@ -60,7 +60,7 @@ def scrape_wikipedia(url):
                 mother_link_text = mother_link_a_element['href']  # Get the href attribute
                 mother_link = "https://www.wikipedia.org" + mother_link_text
             else:
-                print("Mother does no wiki")    
+                mother_link = "No Valid Link"    
         else:
             mother_link = "No Valid Link"
     else:
@@ -72,15 +72,14 @@ def scrape_wikipedia(url):
             
             for item in mother_list_items:
                 if "(mother)" in item.text:
-                    print("it found mother")
+                    
                     anchor_tag = item.find('a')
                     if anchor_tag:
-                        print("it found mother anchor tag")
+                        
                         mother_link_text = item.find('a')['href']
                         if mother_link_text is not None:
-                            print("mother link not none")
                             mother_link = "https://www.wikipedia.org" + mother_link_text
-                            print(mother_link)
+                            
                             break
                     else:
                         print("Mother has no Wikipedia page.")
@@ -115,7 +114,7 @@ def scrape_wikipedia(url):
             
             for item in father_list_items:
                 if "(father)" in item.text:
-                    print("it found father")
+                    
                     anchor_tag = item.find('a')
                     if anchor_tag:
                         father_link_text = item.find('a')['href']
@@ -169,7 +168,7 @@ def scrape_wikipedia(url):
             closing_parenthesis = death_date_text.find(')')
 
         if opening_parenthesis != -1 and closing_parenthesis != -1:
-            # Extract the text between parentheses
+            
             death_date = death_date_text[opening_parenthesis + 1: closing_parenthesis]
         else:
             death_date = None
